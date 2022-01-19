@@ -2,8 +2,8 @@ package coordinatecalculator.line.domain;
 
 public class Point {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     private Point(int x, int y) {
         this.x = x;
@@ -26,9 +26,19 @@ public class Point {
         return PointLimit.isInsideLimit(coordinate);
     }
 
-    public static double calculateDistance(Point point1, Point point2) {
-        return Math.sqrt(
-                Math.pow((point1.x - point2.x), 2) + Math.pow((point1.y - point2.y), 2)
-        );
+    public static int getXValueDifference(Point point1, Point point2) {
+       return point1.x - point2.x;
+    }
+
+    public static int getYValueDifference(Point point1, Point point2) {
+        return point1.y - point2.y;
+    }
+
+    public Point transform() {
+        return new Point(24 - y, x - 1);
+    }
+
+    public void markTo(String[][] board) {
+        board[x][y] = "  *";
     }
 }
