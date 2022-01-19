@@ -5,11 +5,7 @@ import java.util.List;
 
 public abstract class Points {
 
-    List<Point> points;
-
-    protected Points() {
-        this.points = new ArrayList<>();
-    }
+    protected List<Point> points = new ArrayList<>();
 
     public static Points of(Point... points) {
         if (points.length == 2) {
@@ -20,10 +16,8 @@ public abstract class Points {
 
     public abstract String getAttributeMessage();
 
-    public void mark(String[][] board) {
-        for (Point point : points) {
-            Point newPoint = point.transform();
-            board[newPoint.getX()][newPoint.getY()] = "  *";
-        }
+    public void markTo(String[][] board) {
+        points.stream().map(Point::transform)
+                .forEach(transformedPoint -> transformedPoint.markTo(board));
     }
 }
