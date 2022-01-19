@@ -12,7 +12,7 @@ public class Board {
     }
 
     public void markPoints(Points points) {
-        points.mark(board);
+        points.markTo(board);
     }
 
     private void createBoard() {
