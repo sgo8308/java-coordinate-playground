@@ -11,8 +11,8 @@ public class Board {
         createBoard();
     }
 
-    public void markPoint(Point point) {
-
+    public void markPoints(Points points) {
+        points.mark(board);
     }
 
     private void createBoard() {
