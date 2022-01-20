@@ -1,11 +1,11 @@
 package coordinatecalculator.line.utils;
 
-import coordinatecalculator.line.domain.Point;
-import coordinatecalculator.line.domain.Points;
+import coordinatecalculator.line.domain.Coordinate;
+import coordinatecalculator.line.domain.Figure;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class PointsParserTest {
+class FigureParserTest {
 
     @Test
     void parsePoints_하나의_포인트가_주어졌을_때_OnePoint반환() {
@@ -13,10 +13,10 @@ class PointsParserTest {
         String input = "(10,10)";
 
         //when
-        Points points = PointsParser.parsePoints(input);
+        Figure points = FigureParser.parsePoints(input);
 
         //then
-        Assertions.assertThat(points).isEqualTo(Points.of(Point.of(10, 10)));
+        Assertions.assertThat(points).isEqualTo(Figure.of(Coordinate.of(10, 10)));
     }
 
     @Test
@@ -25,9 +25,9 @@ class PointsParserTest {
         String input = "(10,10)-(14,15)j";
 
         //when
-        Points points = PointsParser.parsePoints(input);
+        Figure points = FigureParser.parsePoints(input);
 
         //then
-        Assertions.assertThat(points).isEqualTo(Points.of(Point.of(10, 10), Point.of(14,15)));
+        Assertions.assertThat(points).isEqualTo(Figure.of(Coordinate.of(10, 10), Coordinate.of(14,15)));
     }
 }

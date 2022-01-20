@@ -1,21 +1,21 @@
 package coordinatecalculator.line.controller;
 
 import coordinatecalculator.line.domain.Board;
-import coordinatecalculator.line.domain.Points;
-import coordinatecalculator.line.utils.PointsParser;
+import coordinatecalculator.line.domain.Figure;
+import coordinatecalculator.line.utils.FigureParser;
 import coordinatecalculator.line.view.InputView;
 import coordinatecalculator.line.view.OutputView;
 
 public class CoordinateController {
     public static void main(String[] args) {
-        Points points = inputUntilValidPoints();
+        Figure points = inputUntilValidPoints();
         Board board = new Board();
         board.markPoints(points);
         OutputView.printBoard(board.toString());
         OutputView.printAttribute(points.getAttributeMessage());
     }
 
-    private static Points inputUntilValidPoints() {
+    private static Figure inputUntilValidPoints() {
         String input = "";
         boolean isValid = false;
         while (!isValid) {
@@ -23,12 +23,12 @@ public class CoordinateController {
             input = InputView.inputCoordinate();
             isValid = isValid(input);
         }
-        return PointsParser.parsePoints(input);
+        return FigureParser.parsePoints(input);
     }
 
     private static boolean isValid(String input) {
         try {
-            PointsParser.isValid(input);
+            FigureParser.isValid(input);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return false;

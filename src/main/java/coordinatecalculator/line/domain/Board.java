@@ -11,12 +11,12 @@ public class Board {
         createBoard();
     }
 
-    public void markPoints(Points points) {
+    public void markPoints(Figure points) {
         points.markTo(board);
     }
 
     private void createBoard() {
-        board = new String[PointLimit.UPPER_LIMIT.value][PointLimit.UPPER_LIMIT.value];
+        board = new String[CoordinateLimit.UPPER_LIMIT.value][CoordinateLimit.UPPER_LIMIT.value];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 board[i][j] = "   ";
@@ -39,7 +39,7 @@ public class Board {
 
     private String getRow(int rowNum) {
         return new StringBuilder()
-                .append(getYValue(PointLimit.UPPER_LIMIT.value - rowNum))
+                .append(getYValue(CoordinateLimit.UPPER_LIMIT.value - rowNum))
                 .append(getRowBodyString(rowNum))
                 .append("\n")
                 .toString();

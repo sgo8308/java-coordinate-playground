@@ -1,11 +1,11 @@
 package coordinatecalculator.line.domain;
 
-public enum PointLimit {
+public enum CoordinateLimit {
     LOWER_LIMIT(0),
     UPPER_LIMIT(24);
 
     int value;
-    PointLimit(int value) {
+    CoordinateLimit(int value) {
        this.value = value;
     }
 

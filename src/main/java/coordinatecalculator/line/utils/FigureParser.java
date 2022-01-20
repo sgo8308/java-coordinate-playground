@@ -1,31 +1,31 @@
 package coordinatecalculator.line.utils;
 
-import coordinatecalculator.line.domain.Point;
-import coordinatecalculator.line.domain.Points;
+import coordinatecalculator.line.domain.Coordinate;
+import coordinatecalculator.line.domain.Figure;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PointsParser {
+public class FigureParser {
 
-    public static Points parsePoints(String input) {
+    public static Figure parsePoints(String input) {
         String[] inputs = input.split("-");
-        ArrayList<Point> points = new ArrayList<>();
+        ArrayList<Coordinate> points = new ArrayList<>();
         for (int i = 0; i < inputs.length; i++) {
             String coordinate = inputs[i];
             points.add(parsePoint(coordinate));
         }
-        return Points.of(points.toArray(new Point[points.size()]));
+        return Figure.of(points.toArray(new Coordinate[points.size()]));
     }
 
-    private static Point parsePoint(String coordinate) {
+    private static Coordinate parsePoint(String coordinate) {
         Matcher XYValueMatcher = Pattern.compile("[0-9]+").matcher(coordinate);
         List<Integer> values = new ArrayList<>();
         while (XYValueMatcher.find()) {
             values.add(Integer.valueOf(XYValueMatcher.group()));
         }
-        return Point.of(values.get(0), values.get(1));
+        return Coordinate.of(values.get(0), values.get(1));
     }
 
     public static void isValid(String input) {

@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Points {
+public abstract class Figure {
 
-    protected List<Point> points = new ArrayList<>();
+    protected List<Coordinate> coordinates = new ArrayList<>();
 
-    public static Points of(Point... points) {
-        if (points.length == 2) {
-            return new TwoPoints(points[0], points[1]);
+    public static Figure of(Coordinate... coordinates) {
+        if (coordinates.length == 2) {
+            return new Line(coordinates[0], coordinates[1]);
         }
-        return new OnePoint(points[0]);
+        return new Dot(coordinates[0]);
     }
 
     public abstract String getAttributeMessage();
 
     public void markTo(String[][] board) {
-        points.stream().map(Point::transform)
+        coordinates.stream().map(Coordinate::transform)
                 .forEach(transformedPoint -> transformedPoint.markTo(board));
     }
 
@@ -30,12 +30,12 @@ public abstract class Points {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Points points1 = (Points) o;
-        return Objects.equals(points, points1.points);
+        Figure points1 = (Figure) o;
+        return Objects.equals(coordinates, points1.coordinates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(points);
+        return Objects.hash(coordinates);
     }
 }

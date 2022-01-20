@@ -1,9 +1,9 @@
 package coordinatecalculator.line.domain;
 
-public class OnePoint extends Points {
+public class Dot extends Figure {
 
-    protected OnePoint(Point point) {
-        points.add(point);
+    protected Dot(Coordinate point) {
+        coordinates.add(point);
     }
 
     @Override

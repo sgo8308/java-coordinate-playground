@@ -47,7 +47,7 @@ class BoardTest {
     @Test
     void toString_점이_마킹_되어있을_때() {
         //given
-        Points points = Points.of(Point.of(1, 1), Point.of(5, 5));
+        Figure points = Figure.of(Coordinate.of(1, 1), Coordinate.of(5, 5));
         Board board = new Board();
 
         //when
@@ -86,7 +86,7 @@ class BoardTest {
     @Test
     void markPoint_경계값을_입력받았을_때() {
         //given
-        Points points = Points.of(Point.of(24, 24));
+        Figure points = Figure.of(Coordinate.of(24, 24));
         Board board = new Board();
 
         //when
