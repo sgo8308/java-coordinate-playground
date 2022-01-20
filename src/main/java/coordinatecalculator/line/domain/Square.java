@@ -1,14 +1,36 @@
 package coordinatecalculator.line.domain;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Square extends Figure {
 
     public Square(Coordinate... coordinates) {
         super(coordinates);
+        validation(coordinates);
+    }
+
+    private void validation(Coordinate... coordinates) {
+        Arrays.stream(coordinates).forEach(this::validateHasSameXCoordinateAndSameYCoordinate);
+    }
+
+    private void validateHasSameXCoordinateAndSameYCoordinate(Coordinate coordinate) {
+        if (hasSameXCoordinate(coordinate) && hasSameYCoordinate(coordinate)) {
+            return;
+        }
+        throw new IllegalArgumentException("직사각형을 이루는 좌표만 입력 가능합니다.");
+    }
+
+    private boolean hasSameYCoordinate(Coordinate coordinate) {
+        return findCoordinate(coordinate::hasSameYValue,
+                getCoordinatesExcept(coordinate)) != null;
+    }
+
+    private boolean hasSameXCoordinate(Coordinate coordinate) {
+        return findCoordinate(coordinate::hasSameXValue,
+                getCoordinatesExcept(coordinate)) != null;
     }
 
     @Override
@@ -22,13 +44,15 @@ public class Square extends Figure {
 
     private int getHeight() {
         Coordinate firstCoordinate = getFirstCoordinate();
-        Coordinate coordinateHasSameX = findCoordinate(getCoordinatesExceptFirst(), firstCoordinate::hasSameXValue);
+        Coordinate coordinateHasSameX = findCoordinate(firstCoordinate::hasSameXValue,
+                getCoordinatesExcept(firstCoordinate));
         return Coordinate.yValueDifferenceBetween(firstCoordinate, coordinateHasSameX);
     }
 
     private int getWidth() {
-        Coordinate firstCoordinate = getFirstCoordinate();
-        Coordinate coordinateHasSameY = findCoordinate(getCoordinatesExceptFirst(), firstCoordinate::hasSameYValue);
+        Coordinate firstCoordinate = coordinates.get(0);
+        Coordinate coordinateHasSameY = findCoordinate(firstCoordinate::hasSameYValue,
+                getCoordinatesExcept(firstCoordinate));
         return Coordinate.xValueDifferenceBetween(firstCoordinate, coordinateHasSameY);
     }
 
@@ -36,13 +60,12 @@ public class Square extends Figure {
         return coordinates.get(0);
     }
 
-    private List<Coordinate> getCoordinatesExceptFirst() {
-        return IntStream.range(1, coordinates.size())
-                .mapToObj(coordinates::get)
-                .collect(Collectors.toList());
+    private List<Coordinate> getCoordinatesExcept(Coordinate coordinate) {
+        return coordinates.stream().filter(x -> !x.equals(coordinate)).collect(Collectors.toList());
     }
 
-    private Coordinate findCoordinate(List<Coordinate> coordinates, Predicate<Coordinate> hasSameValue) {
+    private Coordinate findCoordinate(Predicate<Coordinate> hasSameValue,
+            List<Coordinate> coordinates) {
         return coordinates.stream()
                 .filter(hasSameValue)
                 .findFirst()
