@@ -1,6 +1,8 @@
 package coordinatecalculator.line.domain;
 
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Square extends Figure {
@@ -15,26 +17,33 @@ public class Square extends Figure {
     }
 
     private int calculateArea() {
-        int height = getHeight();
-        int width = getWidth();
-        return height * width;
+        return getHeight() * getWidth();
     }
 
     private int getHeight() {
-        Coordinate co1 = coordinates.get(0);
-        Coordinate co2 = findCoordinate(co1::hasSameXValue);
-        return Coordinate.yValueDifferenceBetween(co1, co2);
+        Coordinate firstCoordinate = getFirstCoordinate();
+        Coordinate coordinateHasSameX = findCoordinate(getCoordinatesExceptFirst(), firstCoordinate::hasSameXValue);
+        return Coordinate.yValueDifferenceBetween(firstCoordinate, coordinateHasSameX);
     }
 
     private int getWidth() {
-        Coordinate co1 = coordinates.get(0);
-        Coordinate co2 = findCoordinate(co1::hasSameYValue);
-        return Coordinate.xValueDifferenceBetween(co1, co2);
+        Coordinate firstCoordinate = getFirstCoordinate();
+        Coordinate coordinateHasSameY = findCoordinate(getCoordinatesExceptFirst(), firstCoordinate::hasSameYValue);
+        return Coordinate.xValueDifferenceBetween(firstCoordinate, coordinateHasSameY);
     }
 
-    private Coordinate findCoordinate(Predicate<Coordinate> hasSameValue) {
+    private Coordinate getFirstCoordinate() {
+        return coordinates.get(0);
+    }
+
+    private List<Coordinate> getCoordinatesExceptFirst() {
         return IntStream.range(1, coordinates.size())
                 .mapToObj(coordinates::get)
+                .collect(Collectors.toList());
+    }
+
+    private Coordinate findCoordinate(List<Coordinate> coordinates, Predicate<Coordinate> hasSameValue) {
+        return coordinates.stream()
                 .filter(hasSameValue)
                 .findFirst()
                 .orElse(null);
