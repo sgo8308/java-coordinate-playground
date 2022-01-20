@@ -14,4 +14,8 @@ public class OutputView {
     public static void printAttribute(String attibuteMessage) {
         System.out.println(attibuteMessage);
     }
+
+    public static void printErrorMessage(String message) {
+        System.out.println(message);
+    }
 }
