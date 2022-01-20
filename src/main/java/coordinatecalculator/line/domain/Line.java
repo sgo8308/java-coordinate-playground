@@ -14,8 +14,8 @@ public class Line extends Figure {
 
     private double calculateDistance() {
         return Math.sqrt(
-                Math.pow((Coordinate.getXValueDifference(coordinates.get(0), coordinates.get(1))), 2)
-                        + Math.pow((Coordinate.getYValueDifference(coordinates.get(0), coordinates.get(1))), 2)
+                Math.pow((Coordinate.xValueDifferenceBetween(coordinates.get(0), coordinates.get(1))), 2)
+                        + Math.pow((Coordinate.yValueDifferenceBetween(coordinates.get(0), coordinates.get(1))), 2)
         );
     }
 }
