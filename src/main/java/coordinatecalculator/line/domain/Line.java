@@ -2,9 +2,8 @@ package coordinatecalculator.line.domain;
 
 public class Line extends Figure {
 
-    protected Line(Coordinate point1, Coordinate point2) {
-        coordinates.add(point1);
-        coordinates.add(point2);
+    protected Line(Coordinate... coordinates) {
+        super(coordinates);
     }
 
     @Override
