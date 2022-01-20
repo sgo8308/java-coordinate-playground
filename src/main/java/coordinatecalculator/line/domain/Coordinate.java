@@ -28,20 +28,28 @@ public class Coordinate {
         return CoordinateLimit.isInsideLimit(coordinate);
     }
 
-    public static int getXValueDifference(Coordinate point1, Coordinate point2) {
-       return point1.x - point2.x;
-    }
-
-    public static int getYValueDifference(Coordinate point1, Coordinate point2) {
-        return point1.y - point2.y;
-    }
-
     public Coordinate transform() {
         return new Coordinate(24 - y, x - 1);
     }
 
     public void markTo(String[][] board) {
         board[x][y] = "  *";
+    }
+
+    public static int xValueDifferenceBetween(Coordinate point1, Coordinate point2) {
+        return Math.abs(point1.x - point2.x);
+    }
+
+    public static int yValueDifferenceBetween(Coordinate point1, Coordinate point2) {
+        return Math.abs(point1.y - point2.y);
+    }
+
+    public boolean hasSameYValue(Coordinate coordinate) {
+        return this.y == coordinate.y;
+    }
+
+    public boolean hasSameXValue(Coordinate coordinate) {
+        return this.x == coordinate.x;
     }
 
     @Override
