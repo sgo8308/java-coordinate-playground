@@ -18,9 +18,15 @@ public abstract class Figure {
         if (coordinates.length == 2) {
             return new Line(coordinates[0], coordinates[1]);
         }
+
+        if (coordinates.length == 3) {
+            return new Triangle(coordinates[0], coordinates[1], coordinates[2]);
+        }
+
         if (coordinates.length == 4) {
             return new Square(coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
         }
+
         return new Dot(coordinates[0]);
     }
 
