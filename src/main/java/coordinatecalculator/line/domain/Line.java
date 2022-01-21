@@ -8,14 +8,14 @@ public class Line extends Figure {
 
     @Override
     public String getAttributeMessage() {
-        double distance = calculateDistance();
+        double distance = calculateDistance(coordinates.get(0), coordinates.get(1));
         return "두 점 사이의 거리는 " + distance;
     }
 
-    private double calculateDistance() {
+    public static double calculateDistance(Coordinate a, Coordinate b) {
         return Math.sqrt(
-                Math.pow((Coordinate.xValueDifferenceBetween(coordinates.get(0), coordinates.get(1))), 2)
-                        + Math.pow((Coordinate.yValueDifferenceBetween(coordinates.get(0), coordinates.get(1))), 2)
+                Math.pow((Coordinate.xValueDifferenceBetween(a, b)), 2)
+                        + Math.pow((Coordinate.yValueDifferenceBetween(a, b)), 2)
         );
     }
 }
